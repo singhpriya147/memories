@@ -22,17 +22,18 @@ const registerUser = asyncHandler(async (req, res) => {
  const hashedPassword=await bcrypt.hash(password,salt)
 
  // create a user
- const user = await User.create({
-   name,
-   email,
-   password: hashedPassword,
-   profilePicture: req.body.profilePicture,
-   friends,
-   location,
-   occupation,
- });
 
- console.log(req.body.profilePicture);
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    profilePicture: req.body.profilePicture,
+    friends,
+    location,
+    occupation,
+  });
+
+//  console.log(req.body.profilePicture);
 
 
  if(user){
@@ -94,7 +95,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // geneerate JWT
 const generateToken=(id)=>{
  return jwt.sign({ id }, process.env.JWT_KEY, {
-   expiresIn: '30d',
+   expiresIn: '90d',
  });
 }
 

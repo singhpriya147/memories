@@ -40,17 +40,38 @@ const createPost=async(postData,token)=>{
 // };
 
 
-const getPosts = async (token) => {
+
+
+
+
+
+// const getPostOfFollowing = async (token) => {
+//   const config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+
+//   const response = await axios.get(API_URL, config);
+//   console.log(' getFeedpost is working');
+//   return response.data;
+// };
+
+
+
+const getUserPosts = async (userId,token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.get(API_URL, config);
-
+  const response = await axios.get(API_URL+'\:'+userId+'posts', config);
+  console.log(' getUserpost is working');
   return response.data;
 };
+
+
 
 // const favPost=async(req.res)=>{
 //   const config = {
@@ -81,8 +102,11 @@ const deletePost = async (postId, token) => {
 
 const postService = {
   createPost,
-  getPosts,
+  // getFeedPosts,
+  // getUserPosts,
   deletePost,
+
+ 
 };
 
 export default postService;

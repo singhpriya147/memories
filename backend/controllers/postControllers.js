@@ -3,19 +3,30 @@ const  PostMessage =require( '../models/postModels.js');
 const User=require('../models/userModels')
 // get all post so it is plural
 // since retrieving data from db is asyncrounous process so we use async await
-const getPosts=asyncHandler(async(req,res)=>{
-  //  try {
-  //   const PostMessages=await PostMessage.find({user:req.user.id});
 
-  //   res.status(201).json(PostMessages);
 
-  //  } catch (error) {
-  //   res.status(400).json({message:error.message})
-  //  }
-   console.log(req.user.id)
-  const PostMessages = await PostMessage.find({ user: req.user.id });
+// const getFeedPosts=asyncHandler(async(req,res)=>{
+//  try {
+//   const post=await PostMessage.find();
+//   res.status(200).json(post);
+//  } catch (error) {
+//   res.status(404).json({message:error.message});
+//  }
+// })
+ 
 
-  res.status(200).json(PostMessages);
+
+
+const getUserPosts=asyncHandler(async(req,res)=>{
+   try {
+    const PostMessages=await PostMessage.find({user:req.user.id});
+
+    res.status(201).json(PostMessages);
+
+   } catch (error) {
+    res.status(400).json({message:error.message})
+   }
+ 
 });
 
 
@@ -53,7 +64,11 @@ if(!req.body){
    user: req.user.id,
    fav: req.user.fav,
  });
-   console.log(req.body.selectedFile);
+
+ const user=await User.findById(req.user._id);
+ user.posts.push(newPostMessage._id);
+ await user.save();
+  //  console.log(req.body.selectedFile);
    res.status(200).json(newPostMessage);
  });
 
@@ -68,7 +83,48 @@ if(!req.body){
   res.status(201).json('edit a post');
 };
 
+// for liking a post 
+ const likePost=asyncHandler(async(req,res)=>{
+  console.log('working')
+  try {
 
+    // const { id } = req.param._id;
+    // const { userId } = req.body;
+    const post = await PostMessage.findById(req.params.id);
+   console.log(post)
+    if(!post){
+      return res.status(404).json({
+        success:false,
+        message:'page not found'
+      })
+    }
+     if(post.likes.includes(req.user._id))
+     {
+     const index=post.likes.indexOf(req.user._id);
+     post.likes.splice(index,1);  
+     await post.save();
+       return res.status(200).json({
+      success:true,
+      message:"post unliked"
+
+     });
+    }
+     else{
+     console.log(req.user._id)
+     post.likes.push(req.user._id);
+     await post.save();
+     return res.status(200).json({
+      success:true,
+      message:"post liked"
+
+     })
+     }
+  
+
+  } catch (error) {
+     res.status(400).json({message:error.message});
+  }
+ } )
 
 
 
@@ -81,7 +137,7 @@ if(!req.body){
 //   console.log(" found the id for deletion")
 if (!PostMessages) {
   res.status(400);
-  throw new Error('goal not found');
+  throw new Error(' not found');
 }
 // check for user
 if (!req.user) {
@@ -100,4 +156,38 @@ await PostMessages.remove()
 
   // res.status(201).json('delete post');
 });
-module.exports = { getPosts, createPost, editPost, deletePost };
+
+
+
+
+const getPostOfFollowing = async (req, res) => {
+  
+  try {
+    // const user = await User.findById(req.user.id).populate('following','posts');
+
+     const user = await User.findById(req.user.id)
+      const posts=await PostMessage.find({
+        user:{$in:user.following}
+      })
+
+    res.status(500).json({
+      success: true,
+      // following:user.following,
+      posts:posts.reverse(),
+    });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+module.exports = { getUserPosts,createPost, getPostOfFollowing, editPost,likePost, deletePost };

@@ -49,6 +49,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
   try {
     const token = thunkAPI.getState().auth.user.token;
+    console.log(token);
     return await authService.getUser(id, token);
   } catch (error) {
     const message =
@@ -56,6 +57,7 @@ export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
       error.message ||
       error.toString();
     return thunkAPI.rejectWithValue(message);
+    return message
   }
 })
 
@@ -127,20 +129,20 @@ export const authSlice = createSlice({
       })
 // case for getting user
 
- .addCase(getUser.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = action.payload;
-      })
-      .addCase(getUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.user = null;
-      })
+//  .addCase(getUser.pending, (state) => {
+//         state.isLoading = true;
+//       })
+//       .addCase(getUser.fulfilled, (state, action) => {
+//         state.isLoading = false;
+//         state.isSuccess = true;
+//         state.user = action.payload;
+//       })
+//       .addCase(getUser.rejected, (state, action) => {
+//         state.isLoading = false;
+//         state.isError = true;
+//         state.message = action.payload;
+//         state.user = null;
+//       })
 
 
 

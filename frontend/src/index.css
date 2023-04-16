@@ -1,22 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&display=swap'); 
 
 *{
   margin:0;
   padding:0;
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
+  
 }
 
-.posts {
+/* body{
+  background-color:linear-gradient( #4568dc , #b06ab3 ); */
+/* background-repeat: repeat-y ; */
+
+
+/* .posts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-}
-.memo-main{
+}  */
+/* .memo-main{
   display: flex;
   justify-content:space-between;
-}
+} */
 
-.post-main{
+/* .post-main{
   padding-left: 20px;
+}  */
+
+
+/* .people-container{
+width: 90vh;
+background-color: aliceblue;
+border-radius: 20%;
+box-shadow: 1px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+
+
+
+
 }
+.person{
+
+} */

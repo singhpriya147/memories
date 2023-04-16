@@ -2,27 +2,38 @@ const mongoose= require ('mongoose');
 const postSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    requires: true,
+    required: true,
     ref: 'User',
   },
   title: String,
   message: String,
-  creator: String,
+  location: String,
   tags: [String],
   selectedFile: String,
-  fav: Boolean,
-  // favorites:[{type:mongoose.Schema.Types.ObjectId, ref:'User'}],
   
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+  comments: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+   { comment:{
+      type:String,
+      required:true,
+    }}
+
+
+  ],
 
   createdAt: {
     type: Date,
     default: new Date(),
   },
-
- 
-    
-   
-  
 });
 
 module. exports=mongoose.model('PostMessage',postSchema);

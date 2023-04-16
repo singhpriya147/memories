@@ -19,13 +19,16 @@ const{user,isLoading,isError,isSuccess,message}=useSelector((state)=>state.auth)
 
 
 useEffect(()=>{
+  console.log("inside useffect of login fucntion ") 
   if(isError){
     console.log(" error");
   }
-  if(isSuccess ||user){
+  if(isSuccess || user){
     navigate('/');
   }
+  
   dispatch(reset());
+
 },[user,isError,isLoading,isSuccess,message,navigate,dispatch])
 
 

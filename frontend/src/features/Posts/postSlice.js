@@ -28,29 +28,51 @@ export const createPost=createAsyncThunk('posts/create',async(postData,thunkAPI)
         }
 })
 
-// Get user posts
-export const getPosts = createAsyncThunk(
-  'posts/getAll',
-  async (_, thunkAPI) => {
+// Get user Feed posts basically all following user post 
+// export const getFeedPosts = createAsyncThunk(
+//   'posts/getFeedPosts',
+//   async (thunkAPI) => {
+//     try {
+//       const token = thunkAPI.getState().auth.user.token
+//       return await postService.getFeedPosts(token);
+//     } catch (error) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString()
+//       return thunkAPI.rejectWithValue(message)
+//     }
+//   }
+// );
+
+
+
+
+
+
+
+
+// Get post of  one user
+
+export const getUserPosts = createAsyncThunk(
+  'posts/getOnlyUserPosts',
+  async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
-      return await postService.getPosts(token);
+      const token = thunkAPI.getState().auth.user.token;
+      return await postService.getUserPosts(id,token);
     } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
-
-
-// Get one  post of user
-
-
 
 
 
@@ -101,23 +123,39 @@ export const postSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getPosts.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getPosts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.posts = action.payload;
-      })
-      .addCase(getPosts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
+
+      // .addCase(getFeedPosts.pending, (state) => {
+      //   state.isLoading = true;
+      // })
+      // .addCase(getFeedPosts.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isSuccess = true;
+      //   state.posts = action.payload;
+      // })
+      // .addCase(getFeedPosts.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isError = true;
+      //   state.message = action.payload;
+      // })
+
+
+
+      // .addCase(getUserPosts.pending, (state) => {
+      //   state.isLoading = true;
+      // })
+      // .addCase(getUserPosts.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isSuccess = true;
+      //   state.posts = action.payload;
+      // })
+      // .addCase(getUserPosts.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isError = true;
+      //   state.message = action.payload;
+      // })
+
 
       
-      
-
       .addCase(deletePost.pending, (state) => {
         state.isLoading = true;
       })

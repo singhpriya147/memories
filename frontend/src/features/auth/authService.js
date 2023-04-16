@@ -33,13 +33,15 @@ const login = async (userData) => {
 
 const getUser=async(userId,token)=>{
   const config={
-    header:{
+    headers:{
       Authorization:`Bearer ${token}`,
     },
   };
-  
-  const response = await axios.get(API_URL + '/' + userId, config);
-  console.log(response);
+  // console.log(userId,token)
+  const response = await axios.get(API_URL + '/:' + userId, config);
+  console.log(response.data);
+      console.log('hello');
+
   return response.data;
 
 }
@@ -55,7 +57,7 @@ const authService = {
   register,
   logout,
   login,
-  getUser,
+ getUser
 };
 
 export default authService;

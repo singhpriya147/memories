@@ -1,37 +1,58 @@
 import { makeStyles } from '@material-ui/core';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+ export const useStyles = makeStyles({
+   root: {
+     '& .MuiTextField-root': {},
+     // 'background-color':red
+   },
+ 
+   form: {
+     display: 'flex',
 
- export const useStyles= makeStyles({
-  // root: {
-  //   '& .MuiTextField-root': {
-  //     margin: theme.spacing(1),
-  //   },
-  // },
-  paper: {
-    padding: 2,
-    height:500,
-    width:300,
-  },
-  form: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  fileInput: {
-    width: '97%',
-    margin: '10px 0',
-  },
-  buttonSubmit: {
-    marginBottom: 10,
-  },
+     flexWrap: 'wrap',
+     justifyContent: 'center',
+     height: 320,
+     width: 600,
+   },
+   fileInput: {
+    //  width: '97%',
+     margin: '10px 0',
+   },
+   buttonSubmit: {
+    //  marginBottom: 5,
+     height: '15px',
+   },
+  //  buttonClear: {
+  //   //  marginBottom: 5,
+  //    height: '25px',
+  //  },
+   
 
-// fav {
-//     backgroundColor: red,
-// }
-
-// fav:focus {     
-//     background-color:yellow;    
-// }
+ });
 
 
 
-});
+ export const theme = createTheme({
+   components: {
+     // Name of the component
+     MuiAppBar: {
+       styleOverrides: {
+         // Name of the slot
+         root: {
+           // Some CSS
+           backgroundColor: '#917FB3',
+         },
+       },
+     },
+     MuiButton: {
+       styleOverrides: {
+         // Name of the slot
+         root: {
+           // Some CSS
+           backgroundColor: '#E5BEEC',
+           color: '#2A2F4F',
+         },
+       },
+     },
+   },
+ });
