@@ -4,6 +4,7 @@ const { registerUser, loginUser} = require('../controllers/authControllers');
 const {
   getUser,
   followUser,
+  unfollowUser,
   // getPostOfFollowing,
   getAllUsers,
 } = require('../controllers/userController');
@@ -15,6 +16,7 @@ router.post('/login', loginUser);
 
 router.get('/:id', getUser);
 router.put('/follow/:id',protect,followUser );
+router.put('/unfollow/:id', protect, unfollowUser);
 router.get('/', protect, getAllUsers);
 
 module.exports = router;

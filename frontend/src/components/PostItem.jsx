@@ -24,15 +24,15 @@ export default function PostItem({post}) {
    const [liked, setLiked] = useState(post.likes.includes(user._id));
    const [noOfLikes, setNo] = useState(post.likes.length);
 
-   console.log(liked)
-   console.log(post.likes.length);
+  //  console.log(liked)
+  //  console.log(post.likes.length);
  const dispatch=useDispatch();
 
   const userId=user._id;
   const token=user.token;
-  console.log(userId,token);
+  // console.log(userId,token);
   const postId=post._id
-console.log(postId);
+// console.log(postId);
  const handleLike=async()=>{
   
     try {
