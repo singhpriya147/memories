@@ -62,67 +62,77 @@ useEffect(() => {
  };
   return (
     <>
-      <section>
-        <h1>registration </h1>
-        <p>please register yourself</p>
-      </section>
-      {/* form section */}
-      <form onSubmit={handleSubmit}>
-        <input
-          type='name'
-          id='name'
-          name='name'
-          value={name}
-          placeholder='enter your name'
-          onChange={onChange}
-        />
-
-        <input
-          type='email'
-          id='email'
-          name='email'
-          value={email}
-          placeholder='enter your email'
-          onChange={onChange}
-        />
-        <input
-          type='password'
-          id='password'
-          name='password'
-          value={password}
-          placeholder='password'
-          onChange={onChange}
-        />
-
-        <input
-          type='password'
-          id='password2'
-          name='password2'
-          value={password2}
-          placeholder='confirm password'
-          onChange={onChange}
-        />
-
-        <input
-          type='text'
-          id='location'
-          name='location'
-          value={location}
-          placeholder='your location'
-          onChange={onChange}
-        />
-
-        <input
-          type='text'
-          id='occupation'
-          name='occupation'
-          value={occupation}
-          placeholder='your occupation'
-          onChange={onChange}
-        />
-
-          <h3> Add your profile picture</h3>
-          <FileBase
+      <div className='container'>
+        <div className='header'>
+          <h1>registration </h1>
+          <p>please register yourself</p>
+        </div>
+        {/* form section */}
+        <form className='form' onSubmit={handleSubmit}>
+          <div>
+            <input
+              type='name'
+              id='name'
+              name='name'
+              value={name}
+              placeholder='enter your name'
+              onChange={onChange}
+            />
+          </div>
+         
+          <div>
+            <input
+              type='email'
+              id='email'
+              name='email'
+              value={email}
+              placeholder='enter your email'
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <input
+              type='password'
+              id='password'
+              name='password'
+              value={password}
+              placeholder='password'
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <input
+              type='password'
+              id='password2'
+              name='password2'
+              value={password2}
+              placeholder='confirm password'
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <input
+              type='text'
+              id='location'
+              name='location'
+              value={location}
+              placeholder='your location'
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <input
+              type='text'
+              id='occupation'
+              name='occupation'
+              value={occupation}
+              placeholder='your occupation'
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <h3> Add your profile picture</h3>
+            <FileBase
               type='file'
               multiple={false}
               placeholder='profile picture'
@@ -130,10 +140,11 @@ useEffect(() => {
                 setFormData({ ...formData, profilePicture: base64 })
               }
             />
-        
+          </div>
 
-        <button type='submit'>Submit</button>
-      </form>
+          <button type='submit' className='btn'>Submit</button>
+        </form>
+      </div>
     </>
   );
 }

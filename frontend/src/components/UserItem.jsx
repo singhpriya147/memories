@@ -6,8 +6,15 @@ import {Paper} from '@material-ui/core';
 import CardMedia from '@mui/material/CardMedia';
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { ThemeProvider } from '@mui/material/styles';
+// import { ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
+import FlexBetween from './FlexBetween';
+import WidgetWrapper from './WidgetWrapper'
+
+
+
+
+
 
 function UserItem({person}) 
 
@@ -94,31 +101,33 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
 
 
   return (
-    <ThemeProvider>
+    <>
       <Box
         sx={{
-          maxWidth: 300,
-          pl: '5rem',
+          pl: '2rem',
+          pr: '2rem',
           display: 'flex',
           flexDirection: 'row',
-          backgroundColor: '#E5BEEC',
-          alignItems: 'center',
+          // backgroundColor: '#E5BEEC',
+          // alignItems: 'center',
           borderRadius: '5px',
-          mb: '0.2vmax',
+          mb: '2vmax',
         }}
       >
         <Box
           sx={{
             pb: '0.5rem',
             display: 'flex',
-
+            // bgcolor: 'grey',
+            // width: '2rem',
             flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <CardMedia
             sx={{
               height: 40,
-              width: 40,
+              width: 60,
               borderRadius: 100,
               borderColor: 'blue',
               mt: 1,
@@ -135,19 +144,21 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
 
           <Typography>{person.location}</Typography>
 
-          <Button variant='contained' onClick={()=>{
-            if(isFollowing){
-            ToUnfollowUser();
-            }
-            else{
-              TofollowUser();
-            }
-          }}>
-           {buttonLabel}
+          <Button
+            variant='contained'
+            onClick={() => {
+              if (isFollowing) {
+                ToUnfollowUser();
+              } else {
+                TofollowUser();
+              }
+            }}
+          >
+            {buttonLabel}
           </Button>
         </Box>
       </Box>
-    </ThemeProvider>
+    </>
   );
 }
 

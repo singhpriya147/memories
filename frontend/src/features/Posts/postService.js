@@ -45,17 +45,18 @@ const createPost=async(postData,token)=>{
 
 
 
-// const getPostOfFollowing = async (token) => {
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
+const getUserFeed = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-//   const response = await axios.get(API_URL, config);
-//   console.log(' getFeedpost is working');
-//   return response.data;
-// };
+  const response = await axios.get(API_URL,config);
+  console.log(' getFeedpost is working');
+  console.log(response.data);
+  return response.data;
+};
 
 
 
@@ -66,23 +67,13 @@ const getUserPosts = async (userId,token) => {
     },
   };
 
-  const response = await axios.get(API_URL+'\:'+userId+'posts', config);
+  const response = await axios.get(API_URL + '/' + `${userId}`+ '/posts', config);
   console.log(' getUserpost is working');
+  console.log(response);
   return response.data;
 };
 
 
-
-// const favPost=async(req.res)=>{
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   const response= await axios.get(API_URL+'/favorite'+postId,config);
-//     console.log(response);
-//   return response.data;
-// }
 const deletePost = async (postId, token) => {
   const config = {
     headers: {
@@ -92,21 +83,50 @@ const deletePost = async (postId, token) => {
 
   const response = await axios.delete(API_URL +'/'+postId, config);
   console.log(response);
+  console.log(' post is deleted');
   return response.data;
 };
 
+// const editPost = async (postId,editCaption, token) => {
+//   const config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+//  const captionData={
+//   value:editCaption,
+//  }
+//   const response = await axios.put(API_URL + '/' + `${postId}`, captionData,config);
+//   console.log(response);
+//   return response.data;
+// };
 
+// const addComment = async (postId,commentValue, token) => {
+//   const config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       'Content-Type':'application/json'
+//     },
+//   };
+//  const postData = {
+//    value: commentValue,
+//  };
 
+//   const response = await axios.put(API_URL + '/'+'comment' + '/'+`${postId}` ,postData,config);
+//   console.log(response);
+//    console.log(' comment added');
+//   return response.data;
+// };
 
 
 
 const postService = {
   createPost,
-  // getFeedPosts,
-  // getUserPosts,
+  getUserFeed,
+  getUserPosts,
   deletePost,
-
- 
+  // editPost,
+  // addComment,
 };
 
 export default postService;

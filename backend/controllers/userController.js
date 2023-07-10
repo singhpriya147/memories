@@ -3,9 +3,11 @@ const User = require('../models/userModels');
 const getUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
-    console.log('working');
-    console.log(id);
+    const user = await User.findById(id)
+    .populate('follower')
+    .populate('following');
+    // console.log('working');
+    // console.log(id);
     res.status(200).json(user);
   } catch (error) {
     console.log(error);
@@ -128,8 +130,6 @@ const unfollowUser=async(req,res)=>{
 
 module.exports = {
   getUser,
-  // getUserFriends,
-  // addRemoveFriend,
   getAllUsers,
   followUser,
   unfollowUser,

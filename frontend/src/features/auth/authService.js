@@ -38,7 +38,7 @@ const getUser=async(userId,token)=>{
     },
   };
   // console.log(userId,token)
-  const response = await axios.get(API_URL + '/:' + userId, config);
+  const response = await axios.get(API_URL + '/:' + `${userId}`, config);
   console.log(response.data);
       console.log('hello');
 
@@ -46,6 +46,21 @@ const getUser=async(userId,token)=>{
 
 }
 
+
+// const getAllUser = async ( token) => {
+//   const config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+//   // console.log(userId,token)
+//   const response = await axios.get(API_URL, config);
+//   // console.log(response.data);
+//   console.log('running all user function ');
+
+  
+//   return response.data;
+// };
 
 
 // Logout user
@@ -57,7 +72,8 @@ const authService = {
   register,
   logout,
   login,
- getUser
+ getUser,
+//  getAllUser,
 };
 
 export default authService;

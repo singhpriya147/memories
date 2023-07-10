@@ -45,21 +45,126 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   }
 });
 
-// get   auser
+// get   a user
 export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
   try {
     const token = thunkAPI.getState().auth.user.token;
     console.log(token);
-    return await authService.getUser(id, token);
+     const response=await fetch(`http://localhost:5000/api/users/${id}`,
+     {
+      method:'GET',
+      headers:{
+        'Content-Type':'application/json',
+        Authorization:`Bearer ${token}`,
+      }
+      
+
+     })
+     const data=await response.json();
+     console.log(data);
+     return data;
+
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
     return thunkAPI.rejectWithValue(message);
-    return message
+    // return message
   }
 })
+
+// get all users available 
+
+   export const getAllPerson = createAsyncThunk ('auth/getAllPerson',async(_,thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      console.log(token);
+
+     const response = await fetch(`http://localhost:5000/api/users`, {
+       method: 'GET',
+       headers: {
+         Authorization: `Bearer${token}`,
+       },
+     });
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+
+     const message =
+       (error.response && error.response.data && error.response.data.message) ||
+       error.message ||
+       error.toString();
+     return thunkAPI.rejectWithValue(message);
+    }
+  });
+
+
+
+export const updateProfile = createAsyncThunk(
+  'auth/updateProfile',
+  async ({name,email},thunkAPI) => {
+    //make a request
+    try {
+      
+     const token = thunkAPI.getState().auth.user.token;
+      const response = await fetch(
+        `http://localhost:5000/api/users/update/profile`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+           'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({  name:name, email:email }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("data after update",data);
+      console.log(token)
+      return data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+      // console.log(" error in updating the profile ",error);
+    }
+  }
+);
+
+
+export const updatePassword=createAsyncThunk('auth/updatePassword',async({oldPassword,newPassword},thunkAPI)=>{
+  try {
+    const token=thunkAPI.getState().auth.user.token;
+    const response=await fetch(`http://localhost:5000/api/users/update/password`,{
+      method:'PUT',
+      header:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer${token}`
+      },
+      body:JSON.stringify({oldPassword:oldPassword,newPassword:newPassword})
+    });
+    const data=await response.json();
+    console.log(" data after change password",data);
+  } catch (error) {
+
+    const message=( error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message); 
+  }
+})
+
+
+
+
+
 
 
 
@@ -127,26 +232,74 @@ export const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
       })
-// case for getting user
+      // case for getting user
 
-//  .addCase(getUser.pending, (state) => {
-//         state.isLoading = true;
-//       })
-//       .addCase(getUser.fulfilled, (state, action) => {
-//         state.isLoading = false;
-//         state.isSuccess = true;
-//         state.user = action.payload;
-//       })
-//       .addCase(getUser.rejected, (state, action) => {
-//         state.isLoading = false;
-//         state.isError = true;
-//         state.message = action.payload;
-//         state.user = null;
-//       })
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+
+      // .addCase(getAllPerson.pending, (state) => {
+      //   state.isLoading = true;
+      // })
+      // .addCase(getAllPerson.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isSuccess = true;
+      //   state.user = action.payload;
+      // })
+      // .addCase(getAllPerson.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isError = true;
+      //   state.message = action.payload;
+      // })
+      // pending
+
+      .addCase(updateProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+
+      // fulfilled
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user.name = action.payload.name;
+        state.user.email = action.payload.email;
+      })
+
+      //rejected
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        // state.user = null;
+      })
 
 
 
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+      })
 
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        // state.user = null;
+      });
 
   },
 });

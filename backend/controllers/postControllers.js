@@ -77,21 +77,52 @@ if(!req.body){
 
 
 
- const editPost = (req, res) => {
+ const editPost = async(req, res) => {
 
-  
-  res.status(201).json('edit a post');
-};
+  try {
+    const post=await PostMessage.findById(req.params.id);
+    if(!post){
+       return res.status(404).json({
+        success:false,
+        message:'post not found'
+      })
+    }
+   if (post.user.toString() !== req.user.id) {
+   return res.status(404).json({
+        success:false,
+        message:'user not authorized'
+      })
+   }
+   post.title=req.body.title;
+   await post.save();
+      return res.status(404).json({
+        success:true,
+        message:'post updated'
+      })
+      
+
+ 
+}
+  catch (error) {
+    res.status(500).json({
+      success:false,
+      message:error.message,
+    })
+  } 
+
+  } 
 
 // for liking a post 
+
+
  const likePost=asyncHandler(async(req,res)=>{
-  console.log('working')
+  
   try {
 
     // const { id } = req.param._id;
     // const { userId } = req.body;
     const post = await PostMessage.findById(req.params.id);
-   console.log(post)
+  //  console.log(post)
     if(!post){
       return res.status(404).json({
         success:false,
@@ -126,6 +157,192 @@ if(!req.body){
   }
  } )
 
+const CommentOnPost=async(req,res)=>{
+  try {
+    const post=await PostMessage.findById(req.params.id)
+    if(!post){
+      return res.status(404).json({
+        success:false,
+        message:"post not found"
+      })
+    }
+    // let commentExists=-1;
+    let commentIndex=-1;
+    // checking if comment is already exists
+
+    post.comments.forEach((item,index)=>{
+      if(item.user.toString()===req.user._id.toString()){
+        commentIndex=index;
+      }
+    })
+
+   if (commentIndex!==-1) {
+
+    post.comments[commentIndex].comment=req.body.comment;
+    await post.save();
+    console.log(post.comments.length);
+   
+     return res.status(200).json({
+      success:true,
+      message:"comment updated"
+    })
+
+
+   } else {
+    console.log(req.user._id);
+     console.log(req.body.comment);
+    post.comments.push({
+      user:req.user._id,
+      comment:req.body.comment,
+     
+    })
+     
+    
+    await post.save();
+    
+    console.log(' comment added');
+    // console.log(post.comments)
+    return res.status(200).json({
+      success:true,
+      message:"comment added"
+      
+    })
+     
+   }
+    
+  } catch (error) {
+    return res.status(500).json({
+        success:false,
+        message:error.message
+      })
+  }
+}
+
+const deleteComment = async (req, res) => {
+  try {
+    const post = await PostMessage.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: 'Post not found',
+      });
+    }
+
+    // Checking If owner wants to delete
+
+    if (post.user.toString() === req.user._id.toString()) {
+      if (req.body.commentId === undefined) {
+        return res.status(400).json({
+          success: false,
+          message: 'Comment Id is required',
+        });
+      }
+
+      post.comments.forEach((item, index) => {
+        if (item._id.toString() === req.body.commentId.toString()) {
+          return post.comments.splice(index, 1);
+        }
+      });
+
+      await post.save();
+
+      return res.status(200).json({
+        success: true,
+        message: 'Selected Comment has deleted',
+      });
+    } else {
+      post.comments.forEach((item, index) => {
+        if (item.user.toString() === req.user._id.toString()) {
+          return post.comments.splice(index, 1);
+        }
+      });
+
+      await post.save();
+
+      return res.status(200).json({
+        success: true,
+        message: 'Your Comment has deleted',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// const deleteComment = async (req, res) => {
+//   try {
+//     const post = await PostMessage.findById(req.params.id);
+
+//     if (!post) {
+//       return res.status(404).json({
+//         success: false,
+//         message: 'Post not found',
+//       });
+//     }
+
+//     // Checking if owner wants to delete
+//     if (post.user.toString() === req.user._id.toString()) {
+//       if (req.body.commentId === undefined) {
+//         return res.status(400).json({
+//           success: false,
+//           message: 'Comment Id is required',
+//         });
+//       }
+
+//       let commentIndex = -1;
+//       for (let i = 0; i < post.comments.length; i++) {
+//         if (post.comments[i]._id.toString() === req.body.commentId.toString()) {
+//           commentIndex = i;
+//           break;
+//         }
+//       }
+
+//       if (commentIndex !== -1) {
+//         post.comments.splice(commentIndex, 1);
+//         await post.save();
+
+//         return res.status(200).json({
+//           success: true,
+//           message: 'Selected comment has been deleted',
+//         });
+//       } else {
+//         return res.status(404).json({
+//           success: false,
+//           message: 'Comment not found',
+//         });
+//       }
+//     } else {
+//       // Logic for deleting a comment by a non-owner
+//       // ...
+//         post.comments.forEach((item, index) => {
+//         if (item.user.toString() === req.user._id.toString()) {
+//           return post.comments.splice(index, 1);
+//         }
+//       });
+
+//       await post.save();
+
+//       return res.status(200).json({
+//         success: true,
+//         message: 'Your Comment has deleted',
+//       });
+//     }
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+
+
+
+
 
 
 
@@ -144,7 +361,7 @@ if (!req.user) {
   res.status(401);
   throw new Error('user not found');
 }
-// make sure the logged in user matches the goal user
+// make sure the logged in user matches the post user
 if (PostMessages.user.toString() !== req.user.id) {
   res.status(401);
   throw new Error('user not authirized');
@@ -169,15 +386,16 @@ const getPostOfFollowing = async (req, res) => {
       const posts=await PostMessage.find({
         user:{$in:user.following}
       })
-
-    res.status(500).json({
+  //  console.log(" get feed working");
+    res.status(200).json({ 
       success: true,
       // following:user.following,
       posts:posts.reverse(),
+      message: "feed "
     });
   } catch (error) {
     console.log(error)
-    res.status(500).json({
+    res.status(400).json({
       success: false,
       message: error.message,
     });
@@ -190,4 +408,4 @@ const getPostOfFollowing = async (req, res) => {
 
 
 
-module.exports = { getUserPosts,createPost, getPostOfFollowing, editPost,likePost, deletePost };
+module.exports = { getUserPosts,createPost, getPostOfFollowing, editPost,likePost, deletePost,CommentOnPost,deleteComment };

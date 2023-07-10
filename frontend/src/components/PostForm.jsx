@@ -1,10 +1,11 @@
 import  React from 'react';
 import {useStyles }from './styling';
 import  Typography  from '@mui/material/Typography';
+
 import FileBase from 'react-file-base64';
 import {useDispatch} from 'react-redux'
 import Paper from '@mui/material/Paper';
-// import Card from '@mui/material/Card'
+import Card from '@mui/material/Card'
 import TextField from '@mui/material/TextField';
 // import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
@@ -12,8 +13,7 @@ import Button from '@mui/material/Button';
 import { Box, Container } from '@material-ui/core';
 import {createPost} from '../features/Posts/postSlice'
 import{useState} from 'react'
-
-
+import FlexBetween from './FlexBetween';
 
 
 
@@ -76,47 +76,52 @@ console.log(Data);
     message: '',
     tags: '',
     selectedFile: '',
-    fav:false,
     location:'',
   });
 };
 
   return (
-    <Box sx={{ width: '700' }}>
+    <>
       <form
         autoComplete='off'
         noValidate
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-       
-
         <TextField
           name='title'
           variant='outlined'
           label='Caption'
           fullWidth
+          multiline
           value={postData.title}
+          // className={classes.textField}
+          inputProps={classes.textField}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
+
         <TextField
           name='message'
           variant='outlined'
           label='Message'
-          fullWidth
           multiline
+          fullWidth
           rows={1}
           value={postData.message}
+          className={classes.textField}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
           }
         />
+
         <TextField
           name='location'
           variant='outlined'
           label='Location'
           fullWidth
+          multiline
           value={postData.location}
+          className={classes.textField}
           onChange={(e) =>
             setPostData({ ...postData, location: e.target.value })
           }
@@ -142,7 +147,7 @@ console.log(Data);
           />
         </div>
         <Button
-          className={classes.buttonSubmit}
+          // className={classes.buttonSubmit}
           variant='contained'
           color='primary'
           size='large'
@@ -162,7 +167,7 @@ console.log(Data);
           Clear
         </Button> */}
       </form>
-    </Box>
+    </>
   );
 }
 export default PostForm

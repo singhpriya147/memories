@@ -1,5 +1,6 @@
 const mongoose= require ('mongoose');
 const postSchema = mongoose.Schema({
+  // owner of the post
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -10,7 +11,7 @@ const postSchema = mongoose.Schema({
   location: String,
   tags: [String],
   selectedFile: String,
-  
+
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -19,15 +20,15 @@ const postSchema = mongoose.Schema({
   ],
   comments: [
     {
+      user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
     },
-   { comment:{
-      type:String,
-      required:true,
-    }}
-
-
   ],
 
   createdAt: {
