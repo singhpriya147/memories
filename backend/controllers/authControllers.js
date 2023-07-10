@@ -87,12 +87,12 @@ const updatePassword = asyncHandler(async(req, res) => {
 
 const { oldPassword, newPassword } = req.body;
 const userId = req.user._id;
-console.log(userId)
+// console.log(userId)
 
 try {
    const user = await User.findById(req.user._id)
   // const user = await User.findById(userId);
-console.log(user);
+// console.log(user);
   if (!user) {
     return res.status(400).json({
       success: false,
@@ -222,7 +222,7 @@ const forgotPassword=async(req,res)=>{
 
      await user.save();
      const resetUrl=`${req.protocol}://${req.get("host")}/api/users/password/reset/${resetPasswordToken}`
-   console.log(resetUrl);
+  //  console.log(resetUrl);
       const message=`Reset your password by clicking the link below :\n\n ${resetUrl}`;
 
       try {

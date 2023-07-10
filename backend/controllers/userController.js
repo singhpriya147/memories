@@ -10,7 +10,7 @@ const getUser = async (req, res) => {
     // console.log(id);
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(404).json({ message: error.message });
   }
 
@@ -36,7 +36,7 @@ const getAllUsers = async (req, res) => {
       users
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(404).json({ message: error.message });
   }
 
@@ -46,7 +46,7 @@ const getAllUsers = async (req, res) => {
 const followUser=async(req,res)=>{
 try {
   const userToFollow= await User.findById(req.params.id);
-  console.log(" follow user function is runnig")
+  // console.log(" follow user function is runnig")
 
  const loggedInUser = await User.findById(req.user._id);
 
@@ -90,7 +90,7 @@ try {
 const unfollowUser=async(req,res)=>{
   try {
       const userToUnFollow= await User.findById(req.params.id);
-  console.log(" unfollow user function is runnig")
+  // console.log(" unfollow user function is runnig")
     const loggedInUser = await User.findById(req.user._id);
      if (!userToUnFollow) {
        return res.status(404).json({

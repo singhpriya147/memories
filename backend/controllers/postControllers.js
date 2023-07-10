@@ -141,7 +141,7 @@ if(!req.body){
      });
     }
      else{
-     console.log(req.user._id)
+    //  console.log(req.user._id)
      post.likes.push(req.user._id);
      await post.save();
      return res.status(200).json({
@@ -180,7 +180,7 @@ const CommentOnPost=async(req,res)=>{
 
     post.comments[commentIndex].comment=req.body.comment;
     await post.save();
-    console.log(post.comments.length);
+    // console.log(post.comments.length);
    
      return res.status(200).json({
       success:true,
@@ -189,8 +189,8 @@ const CommentOnPost=async(req,res)=>{
 
 
    } else {
-    console.log(req.user._id);
-     console.log(req.body.comment);
+    // console.log(req.user._id);
+    //  console.log(req.body.comment);
     post.comments.push({
       user:req.user._id,
       comment:req.body.comment,
@@ -200,7 +200,7 @@ const CommentOnPost=async(req,res)=>{
     
     await post.save();
     
-    console.log(' comment added');
+    // console.log(' comment added');
     // console.log(post.comments)
     return res.status(200).json({
       success:true,
@@ -367,7 +367,7 @@ if (PostMessages.user.toString() !== req.user.id) {
   throw new Error('user not authirized');
 }
 await PostMessages.remove()
- console.log("post removed")
+//  console.log("post removed")
   res.status(200).json({id:req.params.id} );
 
 
@@ -394,7 +394,7 @@ const getPostOfFollowing = async (req, res) => {
       message: "feed "
     });
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(400).json({
       success: false,
       message: error.message,
