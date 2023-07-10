@@ -49,7 +49,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
   try {
     const token = thunkAPI.getState().auth.user.token;
-    console.log(token);
+    // console.log(token);
      const response=await fetch(`http://localhost:5000/api/users/${id}`,
      {
       method:'GET',
@@ -61,7 +61,7 @@ export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
 
      })
      const data=await response.json();
-     console.log(data);
+    //  console.log(data);
      return data;
 
   } catch (error) {
@@ -79,7 +79,7 @@ export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
    export const getAllPerson = createAsyncThunk ('auth/getAllPerson',async(_,thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      console.log(token);
+      // console.log(token);
 
      const response = await fetch(`http://localhost:5000/api/users`, {
        method: 'GET',
@@ -88,7 +88,7 @@ export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
        },
      });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error) {
 
@@ -122,8 +122,8 @@ export const updateProfile = createAsyncThunk(
       );
 
       const data = await response.json();
-      console.log("data after update",data);
-      console.log(token)
+      // console.log("data after update",data);
+      // console.log(token)
       return data;
     } catch (error) {
       const message =
@@ -151,7 +151,7 @@ export const updatePassword=createAsyncThunk('auth/updatePassword',async({oldPas
       body:JSON.stringify({oldPassword:oldPassword,newPassword:newPassword})
     });
     const data=await response.json();
-    console.log(" data after change password",data);
+    // console.log(" data after change password",data);
   } catch (error) {
 
     const message=( error.response && error.response.data && error.response.data.message) ||

@@ -25,7 +25,7 @@ const CommentCard = ({
   const dispatch = useDispatch();
 
   const deleteCommentHandle = async () => {
-    console.log(" delete button clicked");
+    // console.log(" delete button clicked");
     const commentData={
       id:postId,
       commentId:commentId,
@@ -57,7 +57,7 @@ const CommentCard = ({
     return <div>Loading...</div>;
   }
 
-  console.log(userId);
+  // console.log(userId);
   return (
     <div className='commentUser'>
       <img src={userInComment.profilePicture} alt={userInComment.name} />

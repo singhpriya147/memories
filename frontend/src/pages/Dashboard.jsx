@@ -42,7 +42,7 @@ function Dashboard() {
 
      dispatch(getUserFeed());
     // getUserFeed();
-     console.log(" after dispatch of getuserfeed");
+    //  console.log(" after dispatch of getuserfeed");
   
     // dispatch(getUser())
      getAllPerson();
@@ -94,12 +94,12 @@ function Dashboard() {
     });
     const allUsers = await res.json();
 
-    console.log(allUsers.users);
+    // console.log(allUsers.users);
     setPersons(allUsers.users);
     
     }
     catch(error){
-  console.error(error);
+  // console.error(error);
   
     }
   };

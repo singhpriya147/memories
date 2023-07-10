@@ -55,7 +55,7 @@ const dispatch=useDispatch()
 
 const handleSubmit=(e)=>{
  e.preventDefault();
-  console.log("clicked submit button")
+  // console.log("clicked submit button")
 const Data = {
 
   title,
@@ -65,7 +65,7 @@ const Data = {
   fav,
   location,
 };
-console.log(Data);
+// console.log(Data);
 
 
   dispatch(createPost(Data))

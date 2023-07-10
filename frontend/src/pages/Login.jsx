@@ -149,9 +149,9 @@ const{user,isLoading,isError,isSuccess,message}=useSelector((state)=>state.auth)
 
 
 useEffect(()=>{
-  console.log("inside useffect of login fucntion ") 
+  // console.log("inside useffect of login fucntion ") 
   if(isError){
-    console.log(" error");
+    // console.log(" error");
     // toast.error(message);
   }
   if(isSuccess || user){
@@ -173,12 +173,12 @@ setFormData((prevState)=>({
 const onSubmit=(e)=>{
 e.preventDefault();
 
-console.log(" you submit the login form");
+// console.log(" you submit the login form");
 const userData={
   email,
   password,
 }
-console.log("loging data", userData)
+// console.log("loging data", userData)
 dispatch(login(userData));
 }
 

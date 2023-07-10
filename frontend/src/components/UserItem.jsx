@@ -45,7 +45,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
       }
     );
       const data=await res.json();
-      console.log(data);
+      // console.log(data);
       setIsFollowing(true);
       setButtonLabel('Unfollow');
      
@@ -63,7 +63,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
      }
    );
    const data = await res.json();
-   console.log(data);
+  //  console.log(data);
    setIsFollowing(false);
     setButtonLabel('Follow');
  };

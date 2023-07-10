@@ -40,7 +40,7 @@ export default function Header() {
 // const [isMobileMenuToggled,setIsMobileMenuToggled]=useState(false);
  const isNonMobileScreens=useMediaQuery("(min-width:960px)");
 const onLogout=()=>{
-  console.log(" clicked on logout button")
+  // console.log(" clicked on logout button")
   dispatch(logout())
   // dispatch(reset())
   navigate('/login')

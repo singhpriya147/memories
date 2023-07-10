@@ -118,7 +118,7 @@ export const addComment = createAsyncThunk(
       );
        
  const data = await response.json(); // Await
- console.log(data);
+//  console.log(data);
  return data;
 
     } catch (error) {
@@ -155,7 +155,7 @@ export const deleteComment = createAsyncThunk(
       );
 
       const data = await response.json(); // Await 
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -221,7 +221,7 @@ export const editPost = createAsyncThunk(
       );
 
       const data = await response.json(); // Await
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error) {
       const message =

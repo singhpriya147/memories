@@ -39,8 +39,8 @@ const getUser=async(userId,token)=>{
   };
   // console.log(userId,token)
   const response = await axios.get(API_URL + '/:' + `${userId}`, config);
-  console.log(response.data);
-      console.log('hello');
+  // console.log(response.data);
+  //     console.log('hello');
 
   return response.data;
 

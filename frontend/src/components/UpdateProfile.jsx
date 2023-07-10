@@ -13,8 +13,8 @@ const UpdateProfile = () => {
 const{user}=useSelector((state)=>state.auth)
 // const [user, setUser] = useState({ name: 'guest' });
 const dispatch = useDispatch();
-console.log("this is user data before change",user);
-console.log(user);
+// console.log("this is user data before change",user);
+// console.log(user);
 
 
 const token =user.token;
@@ -43,7 +43,7 @@ const submitHandler=async(e)=>{
     //  setName('');
     //  setEmail('');
  
-    console.log(" buttton clicked")
+    // console.log(" buttton clicked")
 //  dispatch(getUser(user._id));
 
   navigate('/');

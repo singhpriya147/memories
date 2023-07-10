@@ -58,8 +58,8 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
 
   const userId = user._id;
   const token = user.token;
-  console.log("logged in user userId")
-  console.log(userId);
+  // console.log("logged in user userId")
+  // console.log(userId);
   const postId = post._id;
   // console.log(postId);
   const handleLike = async () => {
@@ -81,7 +81,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
         setNo(noOfLikes + 1);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   const handleUnlike = async () => {
@@ -103,7 +103,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
         setNo(noOfLikes - 1);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -154,7 +154,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
   
   const editCaptionHandler = async(e) => {
      e.preventDefault();
-    console.log(" post caption edited");
+    // console.log(" post caption edited");
     const captionData={
       id:postId,
       value:editCaption,

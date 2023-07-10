@@ -10,7 +10,7 @@ const createPost=async(postData,token)=>{
    },
  };
   const response = await axios.post(API_URL, postData, config);
-  console.log('data posted');
+  // console.log('data posted');
   return response.data;
 }
 
@@ -53,8 +53,8 @@ const getUserFeed = async (token) => {
   };
 
   const response = await axios.get(API_URL,config);
-  console.log(' getFeedpost is working');
-  console.log(response.data);
+  // console.log(' getFeedpost is working');
+  // console.log(response.data);
   return response.data;
 };
 
@@ -68,8 +68,8 @@ const getUserPosts = async (userId,token) => {
   };
 
   const response = await axios.get(API_URL + '/' + `${userId}`+ '/posts', config);
-  console.log(' getUserpost is working');
-  console.log(response);
+  // console.log(' getUserpost is working');
+  // console.log(response);
   return response.data;
 };
 
@@ -82,8 +82,8 @@ const deletePost = async (postId, token) => {
   };
 
   const response = await axios.delete(API_URL +'/'+postId, config);
-  console.log(response);
-  console.log(' post is deleted');
+  // console.log(response);
+  // console.log(' post is deleted');
   return response.data;
 };
 

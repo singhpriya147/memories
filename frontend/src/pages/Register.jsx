@@ -52,7 +52,7 @@ useEffect(() => {
  const handleSubmit = (e) => {
    e.preventDefault();
    if(password!==password2){
-    console.log('password odesnt match')
+    // console.log('password odesnt match')
    }
    else{
     const userData={name,email,password,profilePicture,location,occupation}
