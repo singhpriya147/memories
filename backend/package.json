@@ -4,9 +4,9 @@
   "description": "memories app",
   "main": "server.js",
   "scripts": {
-    " start":"node server.js",
-    "server": "nodemon server.js",
-    " dev":"npm start"
+   "start":"node server.js",
+    "server": "nodemon server.js"
+    
   },
   "author": "priya singh",
   "license": "MIT",
