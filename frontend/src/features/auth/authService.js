@@ -22,9 +22,9 @@ const register = async (userData) => {
 
 // Login user
 const login = async (userData) => {
-  console.log('cheking the url = ', `${process.env.BASE_URL}/api/users`);
+  // console.log('cheking the url = ', `${process.env.BASE_URL}/api/users`);
   // console.log('cheking the url = ', process.env.BASE_URL);
-  const response = await axios.post(API_URL + '/login', userData);
+  const response = await axios.post(API_URL + 'login', userData);
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
