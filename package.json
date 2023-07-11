@@ -1,14 +1,10 @@
 {
-  "name": "backend",
+  "name": "memories",
   "version": "1.0.0",
-  "description": "memories app",
-  "main": "server.js",
+  "description": "social media app",
+  "main": "./backend/server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client":"npm start --prefix ../frontend",
-    "dev":"concurrently \"npm start\" \"npm run client\""
-    
+    "start":"cd ./backend && node index.js"
   },
   "author": "priya singh",
   "license": "MIT",
