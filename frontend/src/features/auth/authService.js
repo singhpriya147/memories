@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-const API_URL = '/api/users/';
-
+// const API_URL = '/api/users/';
+// const API_BASE = 'https://social-media-app-farz.onrender.com';
 // This code defines a JavaScript function register that sends a POST request to an API endpoint /api/users/ using the axios library. The function takes an argument userData
 // (dispatch(register(userData))
 // which is an object containing the data that needs to be sent to the API. The function then makes an API call using the axios.post method, passing the API URL and the user data as arguments.
@@ -11,7 +11,10 @@ const API_URL = '/api/users/';
 
 // Register user
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData);
+  const response = await axios.post(
+    'https://social-media-app-farz.onrender.com/api/users/register',
+    userData
+  );
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
@@ -24,7 +27,10 @@ const register = async (userData) => {
 const login = async (userData) => {
   // console.log('cheking the url = ', `${process.env.BASE_URL}/api/users`);
   // console.log('cheking the url = ', process.env.BASE_URL);
-  const response = await axios.post(API_URL + 'login', userData);
+  const response = await axios.post(
+    'https://social-media-app-farz.onrender.com/api/users/login',
+    userData
+  );
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
@@ -41,7 +47,10 @@ const getUser=async(userId,token)=>{
     },
   };
   // console.log(userId,token)
-  const response = await axios.get(`${API_URL}/:${userId}`, config);
+  const response = await axios.get(
+    `https://social-media-app-farz.onrender.com/api/users/${userId}`,
+    config
+  );
   // console.log(response.data);
   //     console.log('hello');
 

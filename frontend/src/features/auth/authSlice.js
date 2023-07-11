@@ -50,16 +50,16 @@ export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
   try {
     const token = thunkAPI.getState().auth.user.token;
     // console.log(token);
-     const response=await fetch(`http://localhost:5000/api/users/${id}`,
-     {
-      method:'GET',
-      headers:{
-        'Content-Type':'application/json',
-        Authorization:`Bearer ${token}`,
-      }
-      
-
-     })
+     const response = await fetch(
+       `https://social-media-app-farz.onrender.com/api/users/${id}`,
+       {
+         method: 'GET',
+         headers: {
+           'Content-Type': 'application/json',
+           Authorization: `Bearer ${token}`,
+         },
+       }
+     );
      const data=await response.json();
     //  console.log(data);
      return data;
@@ -84,13 +84,16 @@ export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
 
 
       
-     const response = await fetch(`http://localhost:5000/api/users`, {
-    //  const response = await fetch(`process.env.BASE_URL/api/users`, {
-       method: 'GET',
-       headers: {
-         Authorization: `Bearer${token}`,
-       },
-     });
+     const response = await fetch(
+       `https://social-media-app-farz.onrender.com/api/users`,
+       {
+         //  const response = await fetch(`process.env.BASE_URL/api/users`, {
+         method: 'GET',
+         headers: {
+           Authorization: `Bearer${token}`,
+         },
+       }
+     );
       const data = await response.json();
       // console.log(data);
       return data;
@@ -114,14 +117,14 @@ export const updateProfile = createAsyncThunk(
       
      const token = thunkAPI.getState().auth.user.token;
       const response = await fetch(
-        `http://localhost:5000/api/users/update/profile`,
+        `https://social-media-app-farz.onrender.com/api/users/update/profile`,
         {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({  name:name, email:email }),
+          body: JSON.stringify({ name: name, email: email }),
         }
       );
 
@@ -146,14 +149,20 @@ export const updateProfile = createAsyncThunk(
 export const updatePassword=createAsyncThunk('auth/updatePassword',async({oldPassword,newPassword},thunkAPI)=>{
   try {
     const token=thunkAPI.getState().auth.user.token;
-    const response=await fetch(`http://localhost:5000/api/users/update/password`,{
-      method:'PUT',
-      header:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer${token}`
-      },
-      body:JSON.stringify({oldPassword:oldPassword,newPassword:newPassword})
-    });
+    const response = await fetch(
+      `https://social-media-app-farz.onrender.com/api/users/update/password`,
+      {
+        method: 'PUT',
+        header: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer${token}`,
+        },
+        body: JSON.stringify({
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+        }),
+      }
+    );
     const data=await response.json();
     // console.log(" data after change password",data);
   } catch (error) {

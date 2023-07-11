@@ -1,6 +1,6 @@
 import axios from 'axios';
-const API_URL='/api/posts';
-
+// const API_URL='/api/posts';
+const API_URL = 'https://social-media-app-farz.onrender.com/api/posts';
 // create new post
 
 const createPost=async(postData,token)=>{
@@ -9,7 +9,7 @@ const createPost=async(postData,token)=>{
      Authorization: `Bearer ${token}`,
    },
  };
-  const response = await axios.post(API_URL, postData, config);
+  const response = await axios.post('https://social-media-app-farz.onrender.com/api/posts', postData, config);
   // console.log('data posted');
   return response.data;
 }
@@ -52,7 +52,7 @@ const getUserFeed = async (token) => {
     },
   };
 
-  const response = await axios.get(API_URL,config);
+  const response = await axios.get('https://social-media-app-farz.onrender.com/api/posts',config);
   // console.log(' getFeedpost is working');
   // console.log(response.data);
   return response.data;
