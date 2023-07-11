@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const API_URL = '/api/users/';
 
 // This code defines a JavaScript function register that sends a POST request to an API endpoint /api/users/ using the axios library. The function takes an argument userData
@@ -21,6 +22,8 @@ const register = async (userData) => {
 
 // Login user
 const login = async (userData) => {
+  console.log('cheking the url = ', `${process.env.BASE_URL}/api/users`);
+  // console.log('cheking the url = ', process.env.BASE_URL);
   const response = await axios.post(API_URL + '/login', userData);
 
   if (response.data) {
@@ -38,7 +41,7 @@ const getUser=async(userId,token)=>{
     },
   };
   // console.log(userId,token)
-  const response = await axios.get(API_URL + '/:' + `${userId}`, config);
+  const response = await axios.get(`${API_URL}/:${userId}`, config);
   // console.log(response.data);
   //     console.log('hello');
 
