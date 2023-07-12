@@ -20,7 +20,7 @@ app.use(cors());
 // app.use(cors({origin:'*'}));
 app.get('/',(req,res)=>{
  res.setHeader("Access-Control-Allow-Credentials","true");
- res.send("API is running")
+
 })
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
