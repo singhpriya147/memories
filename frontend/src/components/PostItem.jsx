@@ -65,7 +65,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
   const handleLike = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/posts/${post._id}`,
+        `https://social-media-app-farz.onrender.com/api/posts/${post._id}`,
         {
           method: 'GET',
           headers: {
@@ -87,7 +87,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
   const handleUnlike = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/posts/${post._id}`,
+        `https://social-media-app-farz.onrender.com/api/posts/${post._id}`,
         {
           method: 'GET',
           headers: {
