@@ -18,10 +18,10 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 
 app.use(cors());
 // app.use(cors({origin:'http://localhost:3000'}));
-// app.get('/',(req,res)=>{
-//  res.setHeader("Access-Control-Allow-Credentials","true");
+app.get('/',(req,res)=>{
+ res.setHeader("Access-Control-Allow-Credentials","true");
 
-// })
+})
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 
