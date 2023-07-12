@@ -55,7 +55,7 @@ function MyProfile({userId,token}) {
 
  
    const getData = async()=>{
-    const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+    const res = await fetch(`https://social-media-app-farz.onrender.com/api/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
