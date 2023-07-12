@@ -17,6 +17,7 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 
 app.use(cors());
+app.use(cors({origin:'*'}));
 // app.get('/',(req,res)=>{
 //  res.setHeader("Access-Control-Allow-Credentials","true");
 //  res.send("API is running")
