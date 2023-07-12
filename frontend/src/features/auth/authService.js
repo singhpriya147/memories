@@ -48,7 +48,7 @@ const getUser=async(userId,token)=>{
   };
   // console.log(userId,token)
   const response = await axios.get(
-    `https://social-media-app-farz.onrender.com/api/users/${userId}`,
+    `https://social-media-app-farz.onrender.com/api/users/:${userId}`,
     config
   );
   // console.log(response.data);
