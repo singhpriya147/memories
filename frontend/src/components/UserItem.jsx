@@ -35,7 +35,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
 
    const TofollowUser=async()=>{
     const res = await fetch(
-      `http://localhost:5000/api/users/follow/${person._id}`,
+      `https://social-media-app-farz.onrender.com/api/users/follow/${person._id}`,
       { method:'PUT',
         headers: {
           Accept:'application/json',
@@ -52,7 +52,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
    }
  const ToUnfollowUser = async () => {
    const res = await fetch(
-     `http://localhost:5000/api/users/unfollow/${person._id}`,
+     `https://social-media-app-farz.onrender.com/api/users/unfollow/${person._id}`,
      {
        method: 'PUT',
        headers: {
