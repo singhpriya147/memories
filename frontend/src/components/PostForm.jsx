@@ -1,19 +1,14 @@
 import  React from 'react';
 import {useStyles }from './styling';
-import  Typography  from '@mui/material/Typography';
+
 
 import FileBase from 'react-file-base64';
 import {useDispatch} from 'react-redux'
-import Paper from '@mui/material/Paper';
-import Card from '@mui/material/Card'
+
 import TextField from '@mui/material/TextField';
-// import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-// import CardHeader from '@mui/material/CardHeader';
-import { Box, Container } from '@material-ui/core';
 import {createPost} from '../features/Posts/postSlice'
 import{useState} from 'react'
-import FlexBetween from './FlexBetween';
+
 
 
 
@@ -26,14 +21,14 @@ const classes=useStyles()
   
   title:'',
   message: '',
-  tags:'',
+  
   selectedFile:'',
-  fav:false,
+ 
    location:'',
    });
 
 
-const {  title, message, tags, selectedFile,fav ,location} =
+const {  title, message, tags, selectedFile,location} =
   postData;
 
 const dispatch=useDispatch()
@@ -146,26 +141,10 @@ const Data = {
             }
           />
         </div>
-        <Button
-          // className={classes.buttonSubmit}
-          variant='contained'
-          color='primary'
-          size='large'
-          type='submit'
-          fullWidth
-        >
-          Submit
-        </Button>
-        {/* <Button
-          className={classes.buttonClear}
-          variant='contained'
-          color='secondary'
-          // size='small'
-          // onClick={clear}
-          fullWidth
-        >
-          Clear
-        </Button> */}
+         <button className='form-button'>submit</button>
+        
+        
+          
       </form>
     </>
   );
