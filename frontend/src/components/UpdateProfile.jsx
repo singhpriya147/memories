@@ -5,61 +5,34 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import Button  from '@mui/material/Button'
 import {  updateProfile } from '../features/auth/authSlice'
-// import Dashboard from '../pages/Dashboard'
-import getUser from '../features/auth/authSlice'
 
 const UpdateProfile = () => {
-// dispatch(getUser(user._id));
+
 const{user}=useSelector((state)=>state.auth)
-// const [user, setUser] = useState({ name: 'guest' });
+
 const dispatch = useDispatch();
-// console.log("this is user data before change",user);
-// console.log(user);
+
 
 
 const token =user.token;
-// console.log(token);
+
  const navigate = useNavigate();
-
-// const[name,setName]=useState(user? user.name:'');
-// const[email,setEmail]=useState(user?user.email:'');
-
 const [name, setName] = useState("");
 const[email,setEmail]=useState("");
-
-// console.log(user._id);
-
-
-// useEffect(() => {
-//   dispatch(getUser(user._id));
-// }, [dispatch, user._id]);
+const [location, setLocation] = useState('');
+const [occupation, setOccupation] = useState('');
+const[profilePicture,setProfilePicture]=useState('');
 
 
 const submitHandler=async(e)=>{
  e.preventDefault();
   
- await dispatch(updateProfile( {name, email},token));
-    
-    //  setName('');
-    //  setEmail('');
- 
-    // console.log(" buttton clicked")
-//  dispatch(getUser(user._id));
-
+ await dispatch(updateProfile({name, email,location,occupation,profilePicture} ,token));
   navigate('/');
   
 }
 
-//  const getData = async () => {
-//    const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
-//      headers: {
-//        Authorization: `Bearer ${token}`,
-//      },
-//    });
-//    const user = await res.json();
-//    setUser(user);
-//    // console.log(user)
-//  };
+
 
 
 
@@ -88,7 +61,31 @@ const submitHandler=async(e)=>{
             placeholder='updated email'
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Button type='submit' >Update</Button>
+
+
+<input
+            type='text'
+            value={location}
+            placeholder='updated location'
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <input
+            type='text'
+            value={occupation}
+            placeholder='updated occupation'
+            onChange={(e) => setOccupation(e.target.value)}
+          />
+          <div className={classes.fileInput}>
+            <FileBase
+              type='file'
+              multiple={false}
+              onDone={({ base64 }) =>
+                setProfilePicture({ ...profilePicture, selectedFile: base64 })
+              }
+            />
+          </div>
+         
+          <button type='submit' >Update</Button>
         </form>
       </div>
     </div>
