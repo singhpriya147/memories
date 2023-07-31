@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 const crypto=require('crypto');
-// const jwt = require('jsonwebtoken');
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -15,6 +15,18 @@ const userSchema = mongoose.Schema(
       max: 50,
       unique: true,
     },
+
+
+ location:{
+      type: String,
+      required: [true, 'please add a location'],
+    } ,
+    occupation:{
+       type: String,
+      required: [true, 'please add a job'],
+    },
+    
+    
     password: {
       type: String,
       required: [true, 'please add a password'],
@@ -43,8 +55,7 @@ const userSchema = mongoose.Schema(
       type: String,
       default: '',
     },
-    location: String,
-    occupation: String,
+  
     resetPasswordToken: String,
     resetPasswordExpire:Date,
   },
