@@ -39,7 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
-    profilePicture: req.body.profilePicture,
+    profilePicture,
     friends,
     location,
     occupation,
@@ -138,14 +138,28 @@ const updateProfile = asyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
       .populate('name')
-      .populate('email');
-    const { name, email } = req.body;
+      .populate('email')
+      .populate('profilePicture')
+       .populate('location')
+      .populate('occupation')
+      ;
+    const { name, email ,location,occupation ,profilePicture} = req.body;
     if (name) {
       user.name = name;
     }
     if (email) {
       user.email = email;
     }
+    if (location) {
+       user.location = location;
+    }
+    if (occupation) {
+        user.occupation = occupation;
+    }
+    if (profilePicture) {
+      user.profilePicture = profilePicture;
+    }
+    
     await user.save();
     res.status(200).json({
       success: true,
