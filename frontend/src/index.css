@@ -42,7 +42,11 @@ button{
 button:hover {
   box-shadow: #dddcdc 0 0 0 3px, transparent 0 0 0 0;
 }
+.form-button{
 
+   padding-left: 5rem ;
+   padding-right: 5rem;
+}
 
 
 
