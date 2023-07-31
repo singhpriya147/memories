@@ -83,10 +83,7 @@ function MyProfile({userId,token}) {
         sx={{
           height: 350,
           width: 250,
-          // display: {
-          //   xs: 'none',
-          //   md:"block"
-          // },
+        
         }}
       >
         <CardMedia
@@ -94,13 +91,13 @@ function MyProfile({userId,token}) {
             height: 75,
             width: 75,
             borderRadius: 100,
-            borderColor: 'blue',
+           border: '1px solid grey',
             mt: 1,
           }}
           component='img'
           height='200'
           image={user.profilePicture}
-          alt='no img'
+          alt={user.name}
         />
         <CardContent>
           <Typography>{user.name}</Typography>
