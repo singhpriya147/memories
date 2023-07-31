@@ -41,23 +41,9 @@ function Dashboard() {
   useEffect(() => {
 
      dispatch(getUserFeed());
-    // getUserFeed();
-    //  console.log(" after dispatch of getuserfeed");
-  
-    // dispatch(getUser())
+    
      getAllPerson();
 
-    //  .then((response)=>{
-    //     setPersons(response.data.users);
-    //     // console.log(response.data);
-
-    //  })
-    //  .catch((error)=>{
-    //   console.error(error);
-    //  })
-    // return () => {
-    //   dispatch(reset());
-    // };
   }, [])
 
  
@@ -133,7 +119,7 @@ function Dashboard() {
           // justifyContent= 'center'
         >
           {/* loggedin user profile */}
-          <Box sx={{ bgcolor: 'green', display: { xs: 'none', md: 'block' } }}>
+          <Box sx={{  display: { xs: 'none', md: 'block' } }}>
             {user ? (
               <MyProfile key={user._id} userId={user._id} token={user.token} />
             ) :null}
@@ -156,7 +142,7 @@ function Dashboard() {
                   ))}
                 </Box>
               ) : (
-                <Typography>You have not set any memories</Typography>
+                <Typography>Follow people to see their Memories</Typography>
               )}
             </Box>
           </Box>
@@ -165,14 +151,15 @@ function Dashboard() {
           <Box
             sx={{
               alignContent: 'center',
-              bgcolor: 'orange',
+             
               display: { xs: 'none', md: 'block' },
             }}
+               className='suggestion-card'
           >
             {persons ? (
               persons.length > 0 ? (
                 <Box
-                // sx={{ width: 300, height: 300 }}
+               
                 >
                   {persons.map((person) => (
                     <UserItem key={person._id} person={person} />
@@ -189,14 +176,14 @@ function Dashboard() {
       ) : (
         <Box
           sx={{
-            // width: '100vh',
+           
             padding: '2rem',
             gap: '0.5rem',
             display: 'flex',
             flexDirection: 'row',
-            // bgcolor: 'red',
+           
           }}
-          // justifyContent= 'center'
+         
         >
           {/* loggedin user profile */}
 
@@ -204,10 +191,7 @@ function Dashboard() {
           <Box>
             <PostForm />
             <Box
-              sx={{
-                bgcolor: 'green',
-                //  display: { xs: 'none', md: 'block' }
-              }}
+           
             >
               {user ? (
                 <MyProfile
@@ -230,7 +214,7 @@ function Dashboard() {
                   ))}
                 </Box>
               ) : (
-                <Typography>You have not set any memories</Typography>
+                <Typography>Follow people to see thier memories</Typography>
               )}
             </Box>
           </Box>
@@ -263,69 +247,7 @@ function Dashboard() {
         </Box>
       )}
 
-      {/* <Box
-        sx={{
-          // width: '100vh',
-          padding: '2rem',
-          gap: '0.5rem',
-          display: 'flex',
-          flexDirection: 'row',
-          
-        }}
-       
-      > */}
-      {/* loggedin user profile */}
-      {/* <Box sx={{ bgcolor: 'green', display: { xs: 'none', md: 'block' } }}>
-          {user ? (
-            <MyProfile key={user._id} userId={user._id} token={user.token} />
-          ) : null}
-        </Box> */}
-
-      {/*  form for post */}
-      {/* <Box>
-          <PostForm />
-
-          {/*  feed area */}
-      {/* <Box
-            sx={{
-              paddingTop: '3rem',
-            }}
-          >
-            {posts.posts && posts.posts.length > 0 ? (
-              <Box>
-                {posts.posts.map((post) => (
-                  <PostItem key={post._id} post={post} />
-                ))}
-              </Box>
-            ) : (
-              <Typography>You have not set any memories</Typography>
-            )}
-          </Box> */}
-      {/* </Box> */}
-
-      {/* avilable user to follow */}
-      {/* <Box
-          sx={{
-            alignContent: 'center',
-            bgcolor: 'orange',
-            display: { xs: 'none', md: 'block' },
-          }}
-        >
-          {persons ? (
-            persons.length > 0 ? (
-              <Box sx={{ width: 300, height: 300 }}>
-                {persons.map((person) => (
-                  <UserItem key={person._id} person={person} />
-                ))}
-              </Box>
-            ) : (
-              <Typography>no user available to follow</Typography>
-            )
-          ) : (
-            <Typography>Loading...</Typography>
-          )}
-        </Box> */}
-      {/* </Box> */}
+     
     </>
   );
 }
