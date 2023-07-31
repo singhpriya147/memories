@@ -1,21 +1,15 @@
 import { makeStyles } from '@material-ui/core';
-// import { useTheme } from '@material-ui/styles';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export const useStyles = makeStyles(theme=>({
   root: {
     '& .MuiTextField-root': {},
-    // 'background-color':red
+   
   },
 
   form: {
-    //  display: 'flex',
-
-    //  flexWrap: 'wrap',
-    //  justifyContent: 'center',
-    //  height: 320,
-    //  width: 600,
+  
     backgroundColor: '#fff',
     padding: '2rem',
     borderRadius: '0.5rem',
@@ -28,6 +22,12 @@ export const useStyles = makeStyles(theme=>({
     width: '97%',
     margin: '10px 0',
   },
+   header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#EDE4FF',
+  },
   buttonSubmit: {
     marginBottom: 5,
     height: '15px',
@@ -36,41 +36,25 @@ export const useStyles = makeStyles(theme=>({
   textField: {
     margin: '0.5rem',
   },
-  // userCard: {
-  //   maxWidth: 345,
-  //   [theme.breakpoints.down('md')]: {
-  //     maxWidth: 200,
-  //   },
-  // },
+ 
   
 
-  //  buttonClear: {
-  //   //  marginBottom: 5,
-  //    height: '25px',
-  //  },
+
 }));
 
 export const theme = createTheme({
-  components: {
-    // Name of the component
-    MuiAppBar: {
-      styleOverrides: {
-        // Name of the slot
-        root: {
-          // Some CSS
-          backgroundColor: '#917FB3',
-        },
-      },
+palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
     },
-    MuiButton: {
-      styleOverrides: {
-        // Name of the slot
-        root: {
-          // Some CSS
-          backgroundColor: '#E5BEEC',
-          color: '#2A2F4F',
-        },
-      },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
     },
   },
 });
