@@ -1,6 +1,6 @@
 import React from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import { updatePassword } from '../features/auth/authSlice';
+
 import { useState } from 'react';
  import Header from './Header';
  import { Button } from '@mui/material';
@@ -10,6 +10,8 @@ import { logout } from '../features/auth/authSlice';
 
 
 const UpdatePassword = () => {
+ const{user}=useSelector((state)=>state.auth)
+ const token =user.token;
  const [oldPassword,setOldPassword]=useState();
  const [newPassword,setNewPassword]=useState();
  const dispatch=useDispatch();
@@ -17,11 +19,42 @@ const UpdatePassword = () => {
 
  const submitHandler=async(e)=>{
 e.preventDefault();
-await dispatch(updatePassword({oldPassword,newPassword}));
+await dispatch(updatePasswordfun(oldPassword,newPassword));
 
-//  navigate('/login');
+
   dispatch(logout());
+   navigate('/login');
  }
+
+ const updatePasswordfunc = async (oldPassword, newPassword, token) => {
+   try {
+     const response = await fetch(
+       'http://localhost:5000/api/users/update/password',
+       {
+         method: 'PUT',
+         headers: {
+           'Content-Type': 'application/json',
+           Authorization: `Bearer ${token}`,
+         },
+         body: JSON.stringify({
+           oldPassword: oldPassword,
+           newPassword: newPassword,
+         }),
+       }
+     );
+
+     const data = await response.json();
+     console.log('Response from Backend:', data);
+
+     // Handle success or show a success message
+   } catch (error) {
+     console.error('Error in updatePassword:', error);
+
+     // Handle error or show an error message
+   }
+ };
+
+ 
   return (
     <div>
       
@@ -48,7 +81,7 @@ await dispatch(updatePassword({oldPassword,newPassword}));
             placeholder='New password'
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <Button type='submit'>Update password</Button>
+          <button type='submit'>Update password</Button>
         </form>
       </div>
     </div>
