@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import Card from '@mui/material/Card';
@@ -10,7 +9,6 @@ import CardContent from '@mui/material/CardContent';
 import { Typography } from '@material-ui/core';
 import CardActions from '@mui/material/CardActions';
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUserFeed } from '../features/Posts/postSlice';
@@ -29,17 +27,11 @@ import { addComment } from '../features/Posts/postSlice';
 
 
 import CommentCard from './CommentCard/CommentCard';
-// import {
-//   addCommentOnPost,
-//   // deletePost,
-//   // likePost,
-//   // updatePost,
-// } from '../Actions/Post';
 
 export default function PostItem({ post }) {
 
   const { user } = useSelector((state) => state.auth);
-
+const [owner,setOwner]=useState('');
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [noOfLikes, setNo] = useState(post.likes.length);
 
@@ -49,19 +41,13 @@ export default function PostItem({ post }) {
   const[editCaption,setEditCaption]=useState('');
 
 const [editCaptionToggle, setEditCaptionToggle] = useState(false);
-  //  const[isDelete,setIsDelete]=useState(false);
-  //  const[isAccount,setIsAccount]=useState(false);
-
-  //  console.log(post);
-  //  console.log(post.likes.length);
   const dispatch = useDispatch();
 
   const userId = user._id;
   const token = user.token;
-  // console.log("logged in user userId")
-  // console.log(userId);
+ 
   const postId = post._id;
-  // console.log(postId);
+
   const handleLike = async () => {
     try {
       const response = await fetch(
@@ -126,25 +112,8 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
       //  setCommentToggle(false);
     await dispatch(getUserFeed());
 
-    // try {
+   
 
-    //   const res= await  dispatch(addComment(commentData));
-    //   // update the post locally with the newly added comment
-    //    const newCommentId = res.data._id;
-
-    //   const newComment = {
-    //     _id: newCommentId, // Replace 'new-comment-id' with the actual ID of the new comment
-    //     user: user._id,
-    //     comment: commentValue,
-    //   };
-    //    setCommentValue(''); // Clear the comment input field
-    //    setCommentToggle(false);
-
-    //      post.comments((prevComments) => [...prevComments, newComment]);
-
-    // } catch (error) {
-    //     console.error('Error adding comment:', error);
-    // }
   }
 
 
@@ -163,6 +132,32 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
      setEditCaption('');
   };
 
+// to get post owner 
+   const getUserData = async () => {
+
+
+  try {
+      const res = await fetch(`http://localhost:5000/api/users/${post.user}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        const postOwner = await res.json();
+        setOwner(postOwner.name);
+      }
+  } catch (error) {
+     console.error('Error fetching owner details:', error);
+  }
+
+  };
+  useEffect(() => {
+    getUserData();
+  }, [post.user, token]);
+
+
+
+  
   return (
     <Box>
       <Card
@@ -171,7 +166,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
           boxShadow: '3',
         }}
       >
-        <CardHeader title={post.title} subheader={post.creator} />
+        <CardHeader title={post.title} subheader={owner} />
         <Typography variant='subheader' color='text.secondary'>
           {new Date(post.createdAt).toLocaleString()}
         </Typography>
@@ -183,7 +178,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
           component='img'
           sx={{ heigth: 140 }}
           image={post.selectedFile}
-          alt='Paella dish'
+          alt={post.title}
         />
         <CardContent>
           <Typography variant='body2' color='text.secondary'>
@@ -191,19 +186,23 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <Button>
+          <div className='post-footer'>
             {liked ? (
               <Favorite style={{ color: 'red' }} onClick={handleUnlike} />
             ) : (
               <FavoriteBorder style={{ color: 'grey' }} onClick={handleLike} />
             )}
-          </Button>
-          <Typography>{noOfLikes}</Typography>
+            <Typography>{noOfLikes}</Typography>
+          </div>
+          
 
-          <Button onClick={() => setCommentToggle(!commentToggle)}>
-            <ChatBubbleOutline />
+         <div className='post-footer'>
+            
+            <ChatBubbleOutline
+              onClick={() => setCommentToggle(!commentToggle)}
+            />
             <Typography>{post.comments.length}</Typography>
-          </Button>
+          </div>
 
           <Dialog
             open={commentToggle}
@@ -231,7 +230,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
                  
                 />
 
-                <Button type='submit' variant='contained'>
+                <button type='submit' variant='contained'>
                   Add
                 </Button>
               </form>
@@ -262,13 +261,13 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
           {/*  post's userid is same as login id then show delete otherwise dont  */}
 
           {user._id === post.user ? (
-            <IconButton aria-label='delete'>
+            <div className="post-footer">
               <DeleteIcon onClick={() => dispatch(deletePost(post._id))} />
-            </IconButton>
+            </div>
           ) : null}
 
           {user._id === post.user ? (
-            <IconButton aria-label='delete'>
+            <div className="post-footer">
               <EditIcon
                 onClick={() => setEditCaptionToggle(!editCaptionToggle)}
               />
@@ -326,7 +325,7 @@ const [editCaptionToggle, setEditCaptionToggle] = useState(false);
           
 
               </Dialog>
-            </IconButton>
+            </div>
           ) : null}
         </CardActions>
       </Card>
