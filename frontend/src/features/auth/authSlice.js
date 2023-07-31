@@ -111,7 +111,7 @@ export const getUser=createAsyncThunk('auth/getUser',async(id,thunkAPI)=>{
 
 export const updateProfile = createAsyncThunk(
   'auth/updateProfile',
-  async ({name,email},thunkAPI) => {
+  async ({name,email,location,occupation,profilePicture},thunkAPI) => {
     //make a request
     try {
       
@@ -124,13 +124,12 @@ export const updateProfile = createAsyncThunk(
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ name: name, email: email }),
+         body: JSON.stringify({ name: name, email: email,location:location,occupation:occupation,profilePicture:profilePicture }),
         }
       );
 
       const data = await response.json();
-      // console.log("data after update",data);
-      // console.log(token)
+    
       return data;
     } catch (error) {
       const message =
@@ -140,7 +139,7 @@ export const updateProfile = createAsyncThunk(
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
-      // console.log(" error in updating the profile ",error);
+     
     }
   }
 );
