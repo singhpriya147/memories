@@ -1,20 +1,9 @@
-import { Card } from '@mui/material'
-import { Button, CardHeader } from '@material-ui/core';
 import{ Box} from '@mui/material';
 import {Typography} from '@material-ui/core';
-import {Paper} from '@material-ui/core';
 import CardMedia from '@mui/material/CardMedia';
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-// import { ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
-import FlexBetween from './FlexBetween';
-import WidgetWrapper from './WidgetWrapper'
-
-
-
-
-
 
 function UserItem({person}) 
 
@@ -23,8 +12,7 @@ function UserItem({person})
  const { user } = useSelector((state) => state.auth);
  
   const token = user.token;
-  // console.log(user._id);
-
+ 
  
 const [isFollowing, setIsFollowing] = useState(false);
 const [buttonLabel,setButtonLabel]=useState("Follow");
@@ -107,9 +95,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
           pl: '2rem',
           pr: '2rem',
           display: 'flex',
-          flexDirection: 'row',
-          // backgroundColor: '#E5BEEC',
-          // alignItems: 'center',
+          flexDirection: 'row'
           borderRadius: '5px',
           mb: '2vmax',
         }}
@@ -118,8 +104,6 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
           sx={{
             pb: '0.5rem',
             display: 'flex',
-            // bgcolor: 'grey',
-            // width: '2rem',
             flexDirection: 'column',
             alignItems: 'center',
           }}
@@ -129,13 +113,13 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
               height: 40,
               width: 60,
               borderRadius: 100,
-              borderColor: 'blue',
+           border: '1px solid grey',
               mt: 1,
             }}
             component='img'
             height='50'
             image={person.profilePicture}
-            alt='Paella dish'
+            alt={person.name}
           />
 
           <Typography variant='h6' sx={{ ml: '1rem' }}>
@@ -144,7 +128,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
 
           <Typography>{person.location}</Typography>
 
-          <Button
+          <button
             variant='contained'
             onClick={() => {
               if (isFollowing) {
@@ -155,7 +139,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
             }}
           >
             {buttonLabel}
-          </Button>
+          </button>
         </Box>
       </Box>
     </>
