@@ -95,7 +95,7 @@ const [buttonLabel,setButtonLabel]=useState("Follow");
           pl: '2rem',
           pr: '2rem',
           display: 'flex',
-          flexDirection: 'row'
+          flexDirection: 'row',
           borderRadius: '5px',
           mb: '2vmax',
         }}
